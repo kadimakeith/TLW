@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import "./timelock.css";
-//import HowItWorks from "./HowItWorks";
+import HowItWorks from "./HowItWorks";
 import TimeLockWalletArtifact from "../ignition/deployments/chain-11155111/artifacts/TimeLockWallet#TimeLockWallet.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
@@ -28,9 +27,11 @@ function Timelock() {
   const [status, setStatus] = useState(null);
   const [locks, setLocks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [balance, setBalance] = useState(0);
 
-  useEffect(() => {
+  useEffect(() => {      
     connectWallet();
+
   }, []);
 
   const connectWallet = async () => {
@@ -52,8 +53,12 @@ function Timelock() {
       );
       setContract(contractInstance);
 
-      // Load existing locks
-      loadLocks(contractInstance, accounts[0]);
+      loadLocks(contractInstance, accounts[0], web3Instance);
+
+      const balanceInWei = await web3Instance.eth.getBalance(accounts[0]);
+      const balanceInEth = web3Instance.utils.fromWei(balanceInWei);
+      setBalance(balanceInEth);
+
     } catch (error) {
       setStatus({
         type: "error",
@@ -62,7 +67,7 @@ function Timelock() {
     }
   };
 
-  const loadLocks = async (contractInstance, userAccount) => {
+  const loadLocks = async (contractInstance, userAccount, web3Instance) => {
     try {
       const locksCount = await contractInstance.methods.getLocksCount().call();
       console.log("Total locks:", locksCount);
@@ -74,7 +79,7 @@ function Timelock() {
         if (lock.recipient.toLowerCase() === userAccount.toLowerCase()) {
           loadedLocks.push({
             id: i,
-            amount: lock.amount,
+            amount: web3Instance.utils.fromWei(lock.amount),
             releaseTime: new Date(lock.releaseTime * 1000),
             withdrawn: lock.withdrawn,
           });
@@ -101,8 +106,6 @@ function Timelock() {
       const releaseTimestamp = Math.floor(new Date(releaseTime).getTime() / 1000);
       const amountInWei = web3.utils.toWei(amount);
       const amountInEth = web3.utils.fromWei(amountInWei);
-
-      //TO DO: parse wei directly
 
       console.log(amountInEth)
 
@@ -224,6 +227,8 @@ function Timelock() {
           </p>
         </div>
 
+        <HowItWorks />
+
         {account ? (
           <div style={{
             backgroundColor: "white",
@@ -241,6 +246,16 @@ function Timelock() {
             }}>
               <FontAwesomeIcon icon={faWallet} />
               Connected: {account.slice(0, 6)}...{account.slice(-4)}
+            </p>
+            <p style={{
+              fontSize: "0.875rem",
+              color: "#64748b",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem"
+            }}>
+              <FontAwesomeIcon icon={faWallet} />
+              Balance: {balance} ETH
             </p>
           </div>
         ) : (
@@ -485,3 +500,5 @@ function Timelock() {
 };
 
 export default Timelock;
+
+

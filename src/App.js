@@ -1,6 +1,6 @@
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-import ChatWidget from './components/chatWidget';
+//import ChatWidget from './components/chatWidget';
 import Home from './pages/home';
 import AboutUs from './components/Aboutus';
 import LandingPage from './components/LandingPage';
@@ -18,7 +18,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/timelock" element={<Home />} />
         </Routes>
-        <ChatWidget />  
+        {/*<ChatWidget />  */}
         <Footer />
       </div>
     </div>
