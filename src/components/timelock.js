@@ -105,9 +105,6 @@ function Timelock() {
 
       const releaseTimestamp = Math.floor(new Date(releaseTime).getTime() / 1000);
       const amountInWei = web3.utils.toWei(amount);
-      const amountInEth = web3.utils.fromWei(amountInWei);
-
-      console.log(amountInEth)
 
       await contract.methods.lockFunds(recipient, releaseTimestamp)
         .send({

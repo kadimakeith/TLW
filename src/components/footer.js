@@ -215,7 +215,7 @@ const Footer = () => {
             Built with Web3 Technology
           </div>
           <div style={styles.bottomSection}>
-            © {currentYear} Transpesa. All rights reserved.
+            © {currentYear} Locsafe. All rights reserved.
           </div>
         </div>
       </div>
