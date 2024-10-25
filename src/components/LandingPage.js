@@ -128,6 +128,7 @@ const LandingPage = () => {
     },
     newsletterForm: {
       display: 'flex',
+      flexWrap: 'wrap', // Responsive wrapping for mobile
       gap: '1rem',
       maxWidth: '500px',
       margin: '0 auto',
@@ -140,7 +141,8 @@ const LandingPage = () => {
       border: '2px solid #e5e7eb',
       fontSize: '1rem',
       outline: 'none',
-      transition: 'border-color 0.3s ease'
+      transition: 'border-color 0.3s ease',
+      minWidth: '0', // Allows the input to shrink on smaller screens
     },
     inputFocus: {
       borderColor: '#3b82f6'
@@ -157,7 +159,8 @@ const LandingPage = () => {
       transition: 'all 0.3s ease',
       display: 'inline-flex',
       alignItems: 'center',
-      gap: '0.5rem'
+      gap: '0.5rem',
+      flex: '0 1 100px' // Prevent the button from growing too large on smaller screens
     },
     submitButtonHover: {
       backgroundColor: '#2563eb',
@@ -262,8 +265,8 @@ const LandingPage = () => {
               onMouseEnter={() => setIsHovered('submit')}
               onMouseLeave={() => setIsHovered('')}
             >
-              Subscribe
               <FontAwesomeIcon icon={faEnvelope} />
+              Subscribe
             </button>
           </form>
         </div>
@@ -273,4 +276,5 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
 
