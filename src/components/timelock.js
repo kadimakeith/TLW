@@ -29,10 +29,10 @@ function Timelock() {
   const [isLoading, setIsLoading] = useState(false);
   const [balance, setBalance] = useState(0);
 
-/*  useEffect(() => {      
+  useEffect(() => {      
     connectWallet();
 
-  }, []);*/
+  }, []);
 
   const connectWallet = async () => {
     try {
