@@ -65,60 +65,45 @@ const deploymentModule = buildModule("TimeLockWallet", (m) => {
 module.exports = deploymentModule;*/
 
 const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-//const { ethers } = require("hardhat");
 
 /**
  * @param {Object} config Deployment configuration
- * @param {string} config.initialOwner Initial owner address (optional)
+ * @param {Object} config.initialLock Optional initial lock configuration
+ * @param {string} config.initialLock.recipient Recipient address
+ * @param {number} config.initialLock.releaseTime Release timestamp
+ * @param {string} config.initialLock.amount Amount in ETH
  * @returns {Promise<Object>} Deployed contract instances
  */
 const deploymentModule = buildModule("TimeLockWallet", (m, config) => {
-  // Set default values
+  /* Set default values
   const moduleConfig = {
-    initialOwner: null, // Will default to deployer if not specified
+    initialLock: null, // Optional initial lock configuration
     ...config,
-  };
+  };*/
 
   // Deploy the TimeLockWallet contract
   const timeLockWallet = m.contract("TimeLockWallet");
 
-  // If an initial owner is specified and it's different from the deployer,
-  // schedule an ownership transfer
-  if (moduleConfig.initialOwner) {
-    m.call(timeLockWallet, "transferOwnership", [moduleConfig.initialOwner], {
-      id: "transfer-ownership",
-      after: [timeLockWallet],
-    });
-  }
+  /* If initial lock configuration is provided, schedule the lock
+  if (moduleConfig.initialLock) {
+    const { recipient, releaseTime, amount } = moduleConfig.initialLock;
 
-  // Example lock setup (optional, commented out by default)
-  /*
-  // Calculate release time (e.g., 30 days from deployment)
-  const THIRTY_DAYS = 30 * 24 * 60 * 60;
-  const releaseTime = Math.floor(Date.now() / 1000) + THIRTY_DAYS;
+    m.call(
+      timeLockWallet,
+      "lockFunds",
+      [recipient, releaseTime],
+      {
+        id: "initial-lock",
+        after: [timeLockWallet],
+        value: amount, // Amount in wei
+      }
+    );
+  }*/
 
-  // Schedule initial fund lock
-  m.call(
-    timeLockWallet,
-    "lockFunds",
-    [
-      moduleConfig.initialRecipient,
-      releaseTime
-    ],
-    {
-      id: "initial-lock",
-      after: [timeLockWallet],
-      value: ethers.utils.parseEther("1.0"), // 1 ETH
-    }
-  );
-  */
-
-  // Return all deployed contracts and relevant data
+  // Return deployed contract instance
   return {
     timeLockWallet,
-    // Add any additional return values here
   };
 });
 
-// Use CommonJS export syntax
 module.exports = deploymentModule;

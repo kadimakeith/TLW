@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/tufstraka/Desktop/TLW/contracts/TimeLockWallet.sol": {
-      "lastModificationDate": 1729788248864,
-      "contentHash": "5597d101f062515ea144d6a29da5cbec",
+      "lastModificationDate": 1729855062559,
+      "contentHash": "54f403d1acea78ff3407db758654599d",
       "sourceName": "contracts/TimeLockWallet.sol",
       "solcConfig": {
         "version": "0.8.20",

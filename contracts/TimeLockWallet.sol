@@ -2,8 +2,11 @@
 pragma solidity ^0.8.0;
 
 contract TimeLockWallet {
-    // State variables
-    address public owner;
+    // Fee collector address
+    address public constant FEE_COLLECTOR = 0x0788AcB08De2f55b7f2086d1F45478A926921E29;
+    // Fee percentage (100 = 1%, 1000 = 10%)
+    uint256 public constant FEE_BASIS_POINTS = 100; // 1% fee
+    uint256 public constant BASIS_POINTS = 10000; // 100%
     
     // Struct to hold lock details
     struct Lock {
@@ -19,33 +22,13 @@ contract TimeLockWallet {
 
     // Events
     event FundsLocked(uint256 indexed lockId, address indexed sender, address indexed recipient, uint256 amount, uint256 releaseTime);
-    event FundsWithdrawn(uint256 indexed lockId, address indexed recipient, uint256 amount);
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
-    constructor() {
-        owner = msg.sender;
-    }
-
-    // Modifiers
-    modifier onlyOwner() {
-        require(msg.sender == owner, "TimeLockWallet: caller is not the owner");
-        _;
-    }
+    event FundsWithdrawn(uint256 indexed lockId, address indexed recipient, uint256 amount, uint256 fee);
+    event FeeCollected(uint256 indexed lockId, uint256 feeAmount);
 
     modifier validLock(uint256 lockId) {
         require(lockId < nextLockId, "TimeLockWallet: invalid lock id");
         require(!locks[lockId].withdrawn, "TimeLockWallet: funds already withdrawn");
         _;
-    }
-
-    /**
-     * @notice Transfers ownership of the contract
-     * @param newOwner Address of the new owner
-     */
-    function transferOwnership(address newOwner) external onlyOwner {
-        require(newOwner != address(0), "TimeLockWallet: new owner is zero address");
-        emit OwnershipTransferred(owner, newOwner);
-        owner = newOwner;
     }
 
     /**
@@ -57,7 +40,6 @@ contract TimeLockWallet {
     function lockFunds(address recipient, uint256 releaseTime) 
         external 
         payable 
-        onlyOwner 
         returns (uint256 lockId) 
     {
         require(recipient != address(0), "TimeLockWallet: recipient is zero address");
@@ -86,11 +68,32 @@ contract TimeLockWallet {
 
         lock.withdrawn = true;
         uint256 amount = lock.amount;
+        
+        // Calculate fee
+        uint256 feeAmount = (amount * FEE_BASIS_POINTS) / BASIS_POINTS;
+        uint256 recipientAmount = amount - feeAmount;
 
-        (bool success, ) = lock.recipient.call{value: amount}("");
+        // Send fee to collector
+        if (feeAmount > 0) {
+            (bool feeSuccess, ) = FEE_COLLECTOR.call{value: feeAmount}("");
+            require(feeSuccess, "TimeLockWallet: fee transfer failed");
+            emit FeeCollected(lockId, feeAmount);
+        }
+
+        // Send remaining amount to recipient
+        (bool success, ) = lock.recipient.call{value: recipientAmount}("");
         require(success, "TimeLockWallet: transfer failed");
 
-        emit FundsWithdrawn(lockId, lock.recipient, amount);
+        emit FundsWithdrawn(lockId, lock.recipient, recipientAmount, feeAmount);
+    }
+
+    /**
+     * @notice Gets the fee amount for a given amount
+     * @param amount The amount to calculate fee for
+     * @return The fee amount
+     */
+    function calculateFee(uint256 amount) public pure returns (uint256) {
+        return (amount * FEE_BASIS_POINTS) / BASIS_POINTS;
     }
 
     /**

@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
 
-const CONTRACT_ADDRESS = "0xdbB39C4BAB9C176BcBE8B04d298f664BbCb22D3a"; 
+const CONTRACT_ADDRESS = "0x84Ea1D5Db386B3762E79326652853A08DE89c70a"; 
 const ABI = TimeLockWalletArtifact.abi;
 
 function Timelock() {
