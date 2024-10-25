@@ -177,7 +177,7 @@ const LandingPage = () => {
     <div style={styles.container}>
       <section style={styles.hero}>
         <div style={styles.heroContent}>
-          <h1 style={styles.title}>Welcome to Transpesa</h1>
+          <h1 style={styles.title}>Welcome to Locsafe</h1>
           <p style={styles.subtitle}>
             Empowering Global Financial Freedom with Secure, Fast, and Borderless Transactions
           </p>

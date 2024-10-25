@@ -17,7 +17,7 @@ const Navbar = () => {
   const navItems = [
     { title: 'Home', href: '/', icon: faHome },
     { title: 'About', href: '/about', icon: faCircleInfo },
-    { title: 'Contact', href: 'mailto:mseeflani@proton.me', icon: faEnvelope },
+    { title: 'Contact', href: 'mailto:kadimak@loc-safe.com', icon: faEnvelope },
   ];
 
   const styles = {
@@ -160,7 +160,7 @@ const Navbar = () => {
           {/* Logo and Brand */}
           <div style={styles.logoWrapper}>
             <FontAwesomeIcon icon={faClock} style={styles.logoIcon} />
-            <a href='/'><span style={styles.logoText}>Transpesa</span></a>
+            <a href='/'><span style={styles.logoText}>Locsafe</span></a>
           </div>
 
           {/* Desktop Navigation */}

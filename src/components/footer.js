@@ -132,7 +132,7 @@ const Footer = () => {
           <div style={styles.section}>
             <h3 style={styles.heading}>
               <FontAwesomeIcon icon={faLock} style={styles.icon} />
-              TimeLock Wallet
+              Locsafe
             </h3>
             <p style={styles.text}>
               Secure time-based cryptocurrency management solution for your digital assets.
@@ -193,7 +193,7 @@ const Footer = () => {
               Contact Us
             </h3>
             <div>
-              <p style={styles.text}>support@timelockwallet.com</p>
+              <p style={styles.text}>support@loc-safe.com</p>
               <button 
                 style={styles.button}
                 onMouseOver={(e) => e.target.style.backgroundColor = hoverStyles.button.backgroundColor}
@@ -215,7 +215,7 @@ const Footer = () => {
             Built with Web3 Technology
           </div>
           <div style={styles.bottomSection}>
-            © {currentYear} TimeLock Wallet. All rights reserved.
+            © {currentYear} Transpesa. All rights reserved.
           </div>
         </div>
       </div>

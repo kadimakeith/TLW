@@ -114,7 +114,7 @@ const FAQ = () => {
               textDecoration: "none", 
               marginLeft: "5px" 
             }}>
-              mseeflani@proton.me
+              support@loc-safe.com
             </a>. We strive to respond to all inquiries as quickly as possible, usually within 24 hours.
           </p>
         </div>
