@@ -8,6 +8,8 @@ import {
   faArrowRight,
   faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
+import FAQ from './FAQ';
+
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +23,7 @@ const LandingPage = () => {
     },
     hero: {
       backgroundColor: '#111827',
+      height: '340px',
       padding: '120px 20px',
       textAlign: 'center',
       position: 'relative',
@@ -142,7 +145,7 @@ const LandingPage = () => {
       fontSize: '1rem',
       outline: 'none',
       transition: 'border-color 0.3s ease',
-      minWidth: '0', // Allows the input to shrink on smaller screens
+      minWidth: '0', 
     },
     inputFocus: {
       borderColor: '#3b82f6'
@@ -160,7 +163,7 @@ const LandingPage = () => {
       display: 'inline-flex',
       alignItems: 'center',
       gap: '0.5rem',
-      flex: '0 1 100px' // Prevent the button from growing too large on smaller screens
+      flex: '0 1 100px' 
     },
     submitButtonHover: {
       backgroundColor: '#2563eb',
@@ -236,6 +239,8 @@ const LandingPage = () => {
           </div>
         ))}
       </section>
+
+      <FAQ />
 
       <section style={styles.newsletter}>
         <div style={styles.newsletterContent}>

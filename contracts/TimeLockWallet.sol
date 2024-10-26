@@ -14,6 +14,10 @@ contract TimeLockWallet {
         uint256 releaseTime;
         address recipient;
         bool withdrawn;
+        bytes32 blockHash;
+        uint256 blockNumber;
+        uint256 timestamp;     
+        address sender;        
     }
     
     // Mapping to store multiple locks
@@ -21,7 +25,16 @@ contract TimeLockWallet {
     uint256 public nextLockId;
 
     // Events
-    event FundsLocked(uint256 indexed lockId, address indexed sender, address indexed recipient, uint256 amount, uint256 releaseTime);
+    event FundsLocked(
+        uint256 indexed lockId, 
+        address indexed sender, 
+        address indexed recipient, 
+        uint256 amount, 
+        uint256 releaseTime, 
+        bytes32 blockHash, 
+        uint256 blockNumber,
+        uint256 timestamp
+        );   
     event FundsWithdrawn(uint256 indexed lockId, address indexed recipient, uint256 amount, uint256 fee);
     event FeeCollected(uint256 indexed lockId, uint256 feeAmount);
 
@@ -51,16 +64,64 @@ contract TimeLockWallet {
             amount: msg.value,
             releaseTime: releaseTime,
             recipient: recipient,
-            withdrawn: false
+            withdrawn: false,
+            blockHash: blockhash(block.number),
+            blockNumber: block.number,
+            timestamp: block.timestamp,
+            sender: msg.sender
         });
 
-        emit FundsLocked(lockId, msg.sender, recipient, msg.value, releaseTime);
+        emit FundsLocked(
+            lockId, 
+            msg.sender, 
+            recipient, 
+            msg.value, 
+            releaseTime, 
+            blockhash(block.number), 
+            block.number,
+            block.timestamp
+        );    
+        
     }
 
     /**
-     * @notice Withdraws funds from a specific lock
-     * @param lockId The ID of the lock to withdraw from
+     * @notice Gets details of a specific lock
+     * @param lockId The ID of the lock
+     * @return amount The locked amount
+     * @return releaseTime The timestamp when funds can be withdrawn
+     * @return recipient The address that can withdraw the funds
+     * @return withdrawn Whether the funds have been withdrawn
+     * @return blockHash The block hash when the lock was created
+     * @return blockNumber The block number when the lock was created
      */
+    function getLockDetails(uint256 lockId) 
+        external 
+        view 
+        returns (
+            uint256 amount,
+            uint256 releaseTime,
+            address recipient,
+            bool withdrawn,
+            bytes32 blockHash,
+            uint256 blockNumber,
+            uint256 timestamp,
+            address sender
+        ) 
+    {
+        require(lockId < nextLockId, "TimeLockWallet: invalid lock id");
+        Lock storage lock = locks[lockId];
+        return (
+            lock.amount,
+            lock.releaseTime,
+            lock.recipient,
+            lock.withdrawn,
+            lock.blockHash,
+            lock.blockNumber,
+            lock.timestamp,
+            lock.sender
+        );
+    }
+
     function withdraw(uint256 lockId) external validLock(lockId) {
         Lock storage lock = locks[lockId];
         require(msg.sender == lock.recipient, "TimeLockWallet: caller is not the recipient");
@@ -87,55 +148,14 @@ contract TimeLockWallet {
         emit FundsWithdrawn(lockId, lock.recipient, recipientAmount, feeAmount);
     }
 
-    /**
-     * @notice Gets the fee amount for a given amount
-     * @param amount The amount to calculate fee for
-     * @return The fee amount
-     */
     function calculateFee(uint256 amount) public pure returns (uint256) {
         return (amount * FEE_BASIS_POINTS) / BASIS_POINTS;
     }
 
-    /**
-     * @notice Gets details of a specific lock
-     * @param lockId The ID of the lock
-     * @return amount The locked amount
-     * @return releaseTime The timestamp when funds can be withdrawn
-     * @return recipient The address that can withdraw the funds
-     * @return withdrawn Whether the funds have been withdrawn
-     */
-    function getLockDetails(uint256 lockId) 
-        external 
-        view 
-        returns (
-            uint256 amount,
-            uint256 releaseTime,
-            address recipient,
-            bool withdrawn
-        ) 
-    {
-        require(lockId < nextLockId, "TimeLockWallet: invalid lock id");
-        Lock storage lock = locks[lockId];
-        return (
-            lock.amount,
-            lock.releaseTime,
-            lock.recipient,
-            lock.withdrawn
-        );
-    }
-
-    /**
-     * @notice Gets the total balance of the contract
-     * @return The contract's balance in wei
-     */
     function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
 
-    /**
-     * @notice Gets the number of locks created
-     * @return The total number of locks
-     */
     function getLocksCount() external view returns (uint256) {
         return nextLockId;
     }
