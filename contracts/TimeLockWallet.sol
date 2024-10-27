@@ -25,16 +25,7 @@ contract TimeLockWallet {
     uint256 public nextLockId;
 
     // Events
-    event FundsLocked(
-        uint256 indexed lockId, 
-        address indexed sender, 
-        address indexed recipient, 
-        uint256 amount, 
-        uint256 releaseTime, 
-        bytes32 blockHash, 
-        uint256 blockNumber,
-        uint256 timestamp
-        );   
+    event FundsLocked(uint256 indexed lockId, address indexed sender, address indexed recipient, uint256 amount, uint256 releaseTime, bytes32 blockHash, uint256 blockNumber, uint256 timestamp);   
     event FundsWithdrawn(uint256 indexed lockId, address indexed recipient, uint256 amount, uint256 fee);
     event FeeCollected(uint256 indexed lockId, uint256 feeAmount);
 
