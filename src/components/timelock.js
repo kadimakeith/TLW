@@ -14,6 +14,7 @@ import {
   faExternalLink,
   faRightFromBracket,
   faExchangeAlt,
+  faRocket
 } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
 
@@ -127,6 +128,47 @@ function Timelock() {
         });
       }
     };
+
+     const NetworkBanner = () => {
+    const launchDate = new Date('2024-10-11T00:00:00Z');
+    const currentDate = new Date();
+    const daysUntilLaunch = Math.ceil((launchDate - currentDate) / (1000 * 60 * 60 * 24));
+
+    return (
+      <div style={{
+        backgroundColor: "#f0f9ff",
+        border: "1px solid #bae6fd",
+        borderRadius: "0.5rem",
+        padding: "1rem",
+        marginBottom: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+      }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          color: "#0369a1",
+          fontSize: "0.875rem",
+          fontWeight: "500",
+        }}>
+          <FontAwesomeIcon icon={faRocket} />
+          <span>Currently on Sepolia Testnet</span>
+        </div>
+        <p style={{
+          fontSize: "0.875rem",
+          color: "#0c4a6e",
+          margin: "0",
+          lineHeight: "1.4",
+        }}>
+          We are currently operating on the Sepolia testnet for final testing. 
+          Mainnet launch is scheduled for October 11th, 2024 
+          ({daysUntilLaunch} days remaining).
+        </p>
+      </div>
+    );
+  };
   
     // Wallet Management Menu Component
     const WalletMenu = () => (
@@ -658,6 +700,8 @@ function Timelock() {
       }}>
         Secure time-based fund management on the blockchain
       </p>
+
+      <NetworkBanner />
 
       {account ? <WalletInfo /> : (
         <button
