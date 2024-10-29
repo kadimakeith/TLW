@@ -129,8 +129,8 @@ function Timelock() {
       }
     };
 
-     const NetworkBanner = () => {
-    const launchDate = new Date('2024-10-11T00:00:00Z');
+    const NetworkBanner = () => {
+    const launchDate = new Date('2024-11-11T00:00:00Z');
     const currentDate = new Date();
     const daysUntilLaunch = Math.ceil((launchDate - currentDate) / (1000 * 60 * 60 * 24));
 
