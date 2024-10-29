@@ -93,10 +93,14 @@ function Timelock() {
     }, [account]);
   
     const disconnectWallet = () => {
-      resetState();
+      resetState(); 
       setIsWalletMenuOpen(false);
+      if (window.web3) {
+        window.web3 = null; 
+      }
+      console.log("Wallet disconnected");
     };
-  
+      
     const switchAccount = async (newAccount) => {
       try {
         // Request permission only for the specific account
@@ -163,7 +167,7 @@ function Timelock() {
           lineHeight: "1.4",
         }}>
           We are currently operating on the Sepolia testnet for final testing. 
-          Mainnet launch is scheduled for October 11th, 2024 
+          Mainnet launch is scheduled for November 11th, 2024 
           ({daysUntilLaunch} days remaining).
         </p>
       </div>
