@@ -134,7 +134,7 @@ function Timelock() {
     };
 
     const NetworkBanner = () => {
-    const launchDate = new Date('2024-11-11T00:00:00Z');
+    const launchDate = new Date('2024-11-15T00:00:00Z');
     const currentDate = new Date();
     const daysUntilLaunch = Math.ceil((launchDate - currentDate) / (1000 * 60 * 60 * 24));
 
@@ -167,7 +167,7 @@ function Timelock() {
           lineHeight: "1.4",
         }}>
           We are currently operating on the Sepolia testnet for final testing. 
-          Mainnet launch is scheduled for November 11th, 2024 
+          Mainnet launch is scheduled for November 15th, 2024 
           ({daysUntilLaunch} days remaining).
         </p>
       </div>

@@ -5,7 +5,7 @@ import Home from './pages/home';
 import AboutUs from './components/Aboutus';
 import LandingPage from './components/LandingPage';
 import { Route, Routes } from 'react-router-dom';
-
+import TimeLockedWalletOffers from './components/LockFeatures';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/timelock" element={<Home />} />
+          <Route path="/features" element={<TimeLockedWalletOffers/>}/>
         </Routes>
         {/*<ChatWidget />  */}
         <Footer />

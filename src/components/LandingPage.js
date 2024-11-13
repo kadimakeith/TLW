@@ -10,165 +10,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import FAQ from './FAQ';
 
-
 const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [isHovered, setIsHovered] = useState('');
-
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#ffffff',
-      overflow: 'hidden'
-    },
-    hero: {
-      backgroundColor: '#111827',
-      height: '340px',
-      padding: '120px 20px',
-      textAlign: 'center',
-      position: 'relative',
-      overflow: 'hidden'
-    },
-    heroContent: {
-      position: 'relative',
-      zIndex: '2',
-      maxWidth: '800px',
-      margin: '0 auto'
-    },
-    title: {
-      fontSize: '3.5rem',
-      fontWeight: '800',
-      color: '#ffffff',
-      marginBottom: '1.5rem',
-      lineHeight: '1.2',
-      textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    },
-    subtitle: {
-      fontSize: '1.25rem',
-      color: '#e0e7ff',
-      marginBottom: '2.5rem',
-      maxWidth: '600px',
-      margin: '0 auto 2.5rem'
-    },
-    ctaButton: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      backgroundColor: '#ffffff',
-      color: '#1e3a8a',
-      padding: '1rem 2rem',
-      borderRadius: '9999px',
-      fontSize: '1.125rem',
-      fontWeight: '600',
-      textDecoration: 'none',
-      transition: 'all 0.3s ease',
-      border: 'none',
-      cursor: 'pointer',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-    },
-    ctaButtonHover: {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)'
-    },
-    ctaIcon: {
-      marginLeft: '0.5rem',
-      transition: 'transform 0.3s ease'
-    },
-    features: {
-      padding: '100px 20px',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem'
-    },
-    feature: {
-      padding: '2rem',
-      textAlign: 'center',
-      borderRadius: '1rem',
-      transition: 'all 0.3s ease',
-      background: '#ffffff',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-      cursor: 'pointer'
-    },
-    featureHover: {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-    },
-    featureIcon: {
-      fontSize: '2.5rem',
-      color: '#3b82f6',
-      marginBottom: '1.5rem'
-    },
-    featureTitle: {
-      fontSize: '1.5rem',
-      fontWeight: '700',
-      color: '#1f2937',
-      marginBottom: '1rem'
-    },
-    featureDescription: {
-      color: '#6b7280',
-      lineHeight: '1.6'
-    },
-    newsletter: {
-      background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
-      padding: '80px 20px',
-      textAlign: 'center'
-    },
-    newsletterContent: {
-      maxWidth: '600px',
-      margin: '0 auto'
-    },
-    newsletterTitle: {
-      fontSize: '2rem',
-      fontWeight: '700',
-      color: '#1f2937',
-      marginBottom: '1rem'
-    },
-    newsletterDescription: {
-      color: '#4b5563',
-      marginBottom: '2rem',
-      lineHeight: '1.6'
-    },
-    newsletterForm: {
-      display: 'flex',
-      flexWrap: 'wrap', // Responsive wrapping for mobile
-      gap: '1rem',
-      maxWidth: '500px',
-      margin: '0 auto',
-      padding: '0 1rem'
-    },
-    input: {
-      flex: '1',
-      padding: '0.75rem 1.5rem',
-      borderRadius: '9999px',
-      border: '2px solid #e5e7eb',
-      fontSize: '1rem',
-      outline: 'none',
-      transition: 'border-color 0.3s ease',
-      minWidth: '0', 
-    },
-    inputFocus: {
-      borderColor: '#3b82f6'
-    },
-    submitButton: {
-      backgroundColor: '#111827',
-      color: '#ffffff',
-      padding: '0.75rem 2rem',
-      borderRadius: '9999px',
-      fontSize: '1rem',
-      fontWeight: '600',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      flex: '0 1 100px' 
-    },
-    submitButtonHover: {
-      backgroundColor: '#2563eb',
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -177,36 +21,52 @@ const LandingPage = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <section style={styles.hero}>
-        <div style={styles.heroContent}>
-          <h1 style={styles.title}>Welcome to Locsafe</h1>
-          <p style={styles.subtitle}>
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Hero Section */}
+      <section className="bg-gray-900 text-white py-28 px-4 text-center relative overflow-hidden">
+        <div className="relative z-2 mx-auto max-w-4xl">
+          <h1 className="text-5xl font-extrabold mb-6 leading-tight text-shadow-md">
+            Welcome to Locsafe
+          </h1>
+          <p className="text-lg text-indigo-100 mb-10 max-w-3xl mx-auto">
             Empowering Global Financial Freedom with Secure, Fast, and Borderless Transactions
           </p>
-          <Link to="/timelock">
-            <button 
-              style={{
-                ...styles.ctaButton,
-                ...(isHovered === 'cta' ? styles.ctaButtonHover : {})
-              }}
-              onMouseEnter={() => setIsHovered('cta')}
-              onMouseLeave={() => setIsHovered('')}
-            >
-              Get Started
-              <FontAwesomeIcon 
-                icon={faArrowRight} 
-                style={{
-                  ...styles.ctaIcon,
-                  transform: isHovered === 'cta' ? 'translateX(4px)' : 'none'
-                }}
-              />
-            </button>
-          </Link>
+
+          {/* Buttons */}
+          <div className="flex justify-center gap-6">
+            <Link to="/timelock">
+              <button
+                className="inline-flex items-center px-6 py-3 bg-white text-blue-800 font-semibold rounded-full text-lg transition-transform duration-300 ease-in-out hover:translate-y-1 hover:shadow-lg"
+                onMouseEnter={() => setIsHovered('cta')}
+                onMouseLeave={() => setIsHovered('')}
+              >
+                Get Started
+                <FontAwesomeIcon 
+                  icon={faArrowRight} 
+                  className={`ml-2 transition-transform duration-300 ${isHovered === 'cta' ? 'transform translate-x-1' : ''}`}
+                />
+              </button>
+            </Link>
+
+            <Link to="/features">
+              <button
+                className="inline-flex items-center px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full text-lg transition-transform duration-300 ease-in-out hover:translate-y-1 hover:bg-white hover:text-blue-800"
+                onMouseEnter={() => setIsHovered('learn-more')}
+                onMouseLeave={() => setIsHovered('')}
+              >
+                Learn More
+                <FontAwesomeIcon 
+                  icon={faArrowRight} 
+                  className={`ml-2 transition-transform duration-300 ${isHovered === 'learn-more' ? 'transform translate-x-1' : ''}`}
+                />
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section style={styles.features}>
+      {/* Features Section */}
+      <section className="py-28 px-4 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {[
           {
             icon: faShieldHalved,
@@ -226,47 +86,35 @@ const LandingPage = () => {
         ].map((feature, index) => (
           <div
             key={index}
-            style={{
-              ...styles.feature,
-              ...(isHovered === `feature-${index}` ? styles.featureHover : {})
-            }}
+            className="p-8 text-center rounded-lg shadow-md bg-white cursor-pointer transform transition-all duration-300 hover:translate-y-1 hover:shadow-lg"
             onMouseEnter={() => setIsHovered(`feature-${index}`)}
             onMouseLeave={() => setIsHovered('')}
           >
-            <FontAwesomeIcon icon={feature.icon} style={styles.featureIcon} />
-            <h2 style={styles.featureTitle}>{feature.title}</h2>
-            <p style={styles.featureDescription}>{feature.description}</p>
+            <FontAwesomeIcon icon={feature.icon} className="text-blue-500 text-4xl mb-6" />
+            <h2 className="text-xl font-bold text-gray-800 mb-4">{feature.title}</h2>
+            <p className="text-gray-500">{feature.description}</p>
           </div>
         ))}
       </section>
 
       <FAQ />
 
-      <section style={styles.newsletter}>
-        <div style={styles.newsletterContent}>
-          <h2 style={styles.newsletterTitle}>Stay Updated</h2>
-          <p style={styles.newsletterDescription}>
-            Subscribe to our newsletter for the latest updates, promotions, and industry news.
-          </p>
-          <form style={styles.newsletterForm} onSubmit={handleSubmit}>
+      {/* Newsletter Section */}
+      <section className="bg-gradient-to-r from-gray-100 to-gray-300 py-28 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Stay Updated</h2>
+          <p className="text-gray-600 mb-6">Subscribe to our newsletter for the latest updates, promotions, and industry news.</p>
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mx-auto max-w-xl">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              style={{
-                ...styles.input,
-                ...(isHovered === 'input' ? styles.inputFocus : {})
-              }}
-              onFocus={() => setIsHovered('input')}
-              onBlur={() => setIsHovered('')}
+              className="flex-1 px-6 py-3 rounded-full border-2 border-gray-300 text-lg outline-none focus:border-blue-500 transition-all"
             />
             <button
               type="submit"
-              style={{
-                ...styles.submitButton,
-                ...(isHovered === 'submit' ? styles.submitButtonHover : {})
-              }}
+              className="px-6 py-3 bg-gray-900 text-white rounded-full text-lg flex items-center justify-center gap-2 transition-transform duration-300 hover:bg-blue-600"
               onMouseEnter={() => setIsHovered('submit')}
               onMouseLeave={() => setIsHovered('')}
             >
@@ -281,5 +129,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
 
