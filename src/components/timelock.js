@@ -133,7 +133,7 @@ function Timelock() {
       }
     };
 
-    const NetworkBanner = () => {
+   /* const NetworkBanner = () => {
     const launchDate = new Date('2024-11-15T00:00:00Z');
     const currentDate = new Date();
     const daysUntilLaunch = Math.ceil((launchDate - currentDate) / (1000 * 60 * 60 * 24));
@@ -172,7 +172,7 @@ function Timelock() {
         </p>
       </div>
     );
-  };
+  };*/
   
     // Wallet Management Menu Component
     const WalletMenu = () => (
@@ -705,8 +705,6 @@ function Timelock() {
         Secure time-based fund management on the blockchain
       </p>
 
-      <NetworkBanner />
-
       {account ? <WalletInfo /> : (
         <button
           onClick={connectWallet}
@@ -729,7 +727,6 @@ function Timelock() {
         </button>
       )}
 
-      {/* Status message with improved mobile styling */}
       {status && (
         <div
           style={{
@@ -752,7 +749,6 @@ function Timelock() {
         </div>
       )}
 
-      {/* Form with improved mobile styling */}
       <form
         onSubmit={handleLockFunds}
         style={{
@@ -832,7 +828,6 @@ function Timelock() {
         </button>
       </form>
 
-      {/* Locks sections with improved mobile styling */}
       <div style={{ marginBottom: "2rem" }}>
         <h3 style={{ 
           fontSize: "1.125rem", 
